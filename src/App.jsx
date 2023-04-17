@@ -1,25 +1,16 @@
-import { useEffect } from 'react'
-import axios from 'axios'
-
-import getMovies from './api';
+import { Row } from "./components/Row"
+import { categories } from './api';
 
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  useEffect( () => {
-
-    let url =getMovies('trending')
-
-      axios.get(url).then((data)=>{
-        console.log(data)
-      })
-
-  } )
 
   return (
-    <>App</>
+    <div className="App">
+      {categories.map( (category) => {
+        return <Row key={category.name} title={category.title} path={category.path} />
+      } )}
+    </div>
   )
 }
 
