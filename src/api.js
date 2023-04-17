@@ -47,5 +47,3 @@ export const getMovies = async (path) => {
 
     return url; 
 }
-
-export default getMovies;

@@ -3,15 +3,15 @@ import { categories } from './api';
 
 import './App.css'
 
-function App() {
+export function App() {
 
   return (
     <div className="App">
-      {categories.map( (category) => {
-        return <Row key={category.name} title={category.title} path={category.path} />
-      } )}
+      {categories.map((category) => {
+        return (
+        <Row key={category.name} title={category.title} path={category.path} />
+        )
+      })}
     </div>
   )
 }
-
-export default App
