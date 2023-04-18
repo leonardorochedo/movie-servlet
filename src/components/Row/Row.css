@@ -15,13 +15,11 @@
 }
 
 .movie-card {
+    object-fit: contain;
     width: 100%;
-    max-width: 100px;
+    max-height: 100px;
     margin-bottom: 10px;
-}
-
-.movie-card:hover {
-    transform: scale(1.08)
+    transition: transform 450ms;
 }
 
 .movie-card-large {
@@ -30,4 +28,8 @@
     max-height: 250px;
     margin-bottom: 10px;
     transition: transform 450ms;
+}
+
+.movie-card:hover {
+    transform: scale(1.08)
 }

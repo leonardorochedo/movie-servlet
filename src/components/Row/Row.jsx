@@ -35,7 +35,7 @@ export function Row ({ title, path, isLarge }) {
                             key={movie.id}
                             src={imageHost + movie.poster_path}
                             alt={movie.name}
-                        />
+                        ></img>
                     )
                 })}
             </div>
