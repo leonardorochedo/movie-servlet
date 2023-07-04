@@ -1,4 +1,4 @@
-package org.films.servlets;
+package org.films.servlets.user;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -12,7 +12,7 @@ import org.films.services.UserService;
 
 import java.io.IOException;
 
-public class UserServlet extends HttpServlet {
+public class UserSigninServlet extends HttpServlet {
 	
     private static final long serialVersionUID = 1L;
     
@@ -51,4 +51,3 @@ public class UserServlet extends HttpServlet {
         return;
     }
 }
-
