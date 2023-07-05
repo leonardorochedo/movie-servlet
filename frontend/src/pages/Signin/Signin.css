@@ -67,6 +67,8 @@ img.nav-logo-login {
   border: none;
 
   transition: 0.3s;
+
+  font-weight: bold;
 }
 
 .login-container form button:hover {
