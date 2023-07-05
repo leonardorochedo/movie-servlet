@@ -6,6 +6,7 @@ import org.films.servlets.tmbd.TmdbNetflixOriginalsServlet;
 import org.films.servlets.tmbd.TmdbRomanceServlet;
 import org.films.servlets.tmbd.TmdbTopRatedServlet;
 import org.films.servlets.tmbd.TmdbTrendingServlet;
+import org.films.servlets.user.UserGetTokenServlet;
 import org.films.servlets.user.UserSigninServlet;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -24,6 +25,7 @@ public class Main {
        
        // User
        context.addServlet(new ServletHolder(new UserSigninServlet()), "/auth/signin");
+       context.addServlet(new ServletHolder(new UserGetTokenServlet()), "/auth/whoami");
         
        // Movie
        context.addServlet(new ServletHolder(new TmdbTrendingServlet()), "/medias/trending");

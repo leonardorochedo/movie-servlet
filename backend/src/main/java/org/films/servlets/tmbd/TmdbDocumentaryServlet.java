@@ -18,8 +18,6 @@ public class TmdbDocumentaryServlet extends HttpServlet {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
       JSONArray movies = tmdbService.documentaryMovies();
       
-      System.out.println(movies);
-      
       // Check data
       if(movies == null) {
          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
