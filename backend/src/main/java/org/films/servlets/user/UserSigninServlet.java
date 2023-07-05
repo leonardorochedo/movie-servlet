@@ -31,14 +31,20 @@ public class UserSigninServlet extends HttpServlet {
         User userFinded = userService.findUser(user);
         
         if(userFinded == null) {
+        	// Create a JSON Object
+            JsonObject messageJson = Json.createObjectBuilder()
+                    .add("message", "Preencha corretamente os campos!")
+                    .build();
+        	
         	response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.setContentType("application/json");
-            response.getWriter().println("E-mail ou senha estão incorretos(a)!");
+            response.getWriter().println(messageJson.toString());
             return;
         }
         
         // Create a JSON Object with User data
         JsonObject userJson = Json.createObjectBuilder()
+        		.add("message", "Usuário logado com sucesso!")
                 .add("id", userFinded.getId())
                 .add("email", userFinded.getEmail())
                 .add("password", userFinded.getPassword())
