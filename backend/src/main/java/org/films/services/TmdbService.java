@@ -2,17 +2,31 @@ package org.films.services;
 
 import java.io.IOException;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.films.databases.TmdbApi;
+import org.films.entities.User;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 public class TmdbService {
    private TmdbApi tmdbApi = new TmdbApi();
    
-   public JSONArray trendingMovies() {
+   public JSONArray trendingMovies(Integer id) {
       try {
+    	 // Get movies
          JSONArray movies = tmdbApi.searchMovies("/trending/all/week", "&language=pt-BR");
          
-         return movies;
+         // Get user with 'token'
+         JSONObject user = getUserByHTTP(id);
+         
+         // FIlter result age User and return result
+         return filterMoviesAge(user, movies);
       }
       catch (IOException e) {
          e.printStackTrace();
@@ -20,11 +34,13 @@ public class TmdbService {
       }
    }
    
-   public JSONArray netflixOriginalsMovies() {
+   public JSONArray netflixOriginalsMovies(Integer id) {
       try {
          JSONArray movies = tmdbApi.searchMovies("/discover/tv", "&language=pt-BR&with_networks=213");
          
-         return movies;
+         JSONObject user = getUserByHTTP(id);
+         
+         return filterMoviesAge(user, movies);
       }
       catch (IOException e) {
          e.printStackTrace();
@@ -32,11 +48,13 @@ public class TmdbService {
       }
    }
    
-   public JSONArray topRatedMovies() {
+   public JSONArray topRatedMovies(Integer id) {
       try {
          JSONArray movies = tmdbApi.searchMovies("/movie/top_rated", "&language=pt-BR");
          
-         return movies;
+         JSONObject user = getUserByHTTP(id);
+         
+         return filterMoviesAge(user, movies);
       }
       catch (IOException e) {
          e.printStackTrace();
@@ -44,11 +62,13 @@ public class TmdbService {
       }
    }
    
-   public JSONArray comedyMovies() {
+   public JSONArray comedyMovies(Integer id) {
       try {
          JSONArray movies = tmdbApi.searchMovies("/discover/tv", "&language=pt-BR&with_genres=35");
          
-         return movies;
+         JSONObject user = getUserByHTTP(id);
+         
+         return filterMoviesAge(user, movies);
       }
       catch (IOException e) {
          e.printStackTrace();
@@ -56,11 +76,13 @@ public class TmdbService {
       }
    }
    
-   public JSONArray romanceMovies() {
+   public JSONArray romanceMovies(Integer id) {
       try {
          JSONArray movies = tmdbApi.searchMovies("/discover/tv", "&language=pt-BR&with_genres=10749");
          
-         return movies;
+         JSONObject user = getUserByHTTP(id);
+         
+         return filterMoviesAge(user, movies);
       }
       catch (IOException e) {
          e.printStackTrace();
@@ -68,16 +90,61 @@ public class TmdbService {
       }
    }
    
-   public JSONArray documentaryMovies() {
+   public JSONArray documentaryMovies(Integer id) {
       try {
          JSONArray movies = tmdbApi.searchMovies("/discover/tv", "&language=pt-BR&with_genres=99");
          
-         return movies;
+         JSONObject user = getUserByHTTP(id);
+         
+         return filterMoviesAge(user, movies);
       }
       catch (IOException e) {
          e.printStackTrace();
          return null;
       }
+   }
+   
+   // Helper's
+   private JSONObject getUserByHTTP(Integer id) {
+	   CloseableHttpClient httpClient = HttpClients.createDefault();
+       HttpGet httpGet = new HttpGet("http://localhost:8080/auth/whoami?id=" + id); // our endpoint to find user with 'token'
+
+       try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+           HttpEntity entity = response.getEntity();
+           String responseBody = EntityUtils.toString(entity);
+
+           // Parse the JSON response
+           JSONParser parser = new JSONParser();
+           JSONObject jsonResponse = (JSONObject) parser.parse(responseBody);
+           return jsonResponse;
+       } catch (Exception e) {
+           e.printStackTrace();
+           return null;
+       }
+   }
+   
+   private JSONArray filterMoviesAge(JSONObject user, JSONArray movies) {
+	   // If user is not adult
+	   if (((Long) user.get("age")).intValue() < 18) {
+      	 JSONArray filteredMovies = new JSONArray();
+      	 
+      	 for (Object movie : movies) {
+      		 JSONObject movieJSON = (JSONObject) movie;
+      		 
+      		 Object adultField = movieJSON.get("adult");
+      		 
+      		 // Get filter become with movies
+  			 if (adultField == null || !(boolean) adultField) {
+  				 filteredMovies.add(movie);
+  			 } else {
+  				 return null;
+  			 }
+      	 }
+      	 
+      	 return filteredMovies;
+       }
+	   
+	   return movies;
    }
    
 }

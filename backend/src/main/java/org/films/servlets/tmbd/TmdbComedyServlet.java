@@ -16,7 +16,9 @@ public class TmdbComedyServlet extends HttpServlet {
    
    @Override
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-      JSONArray movies = tmdbService.comedyMovies();
+	  String id = request.getParameter("id");
+	   
+      JSONArray movies = tmdbService.comedyMovies(Integer.parseInt(id));
       
       // Check data
       if(movies == null) {

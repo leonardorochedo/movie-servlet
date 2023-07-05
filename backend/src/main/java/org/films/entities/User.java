@@ -2,6 +2,8 @@ package org.films.entities;
 
 import java.util.Objects;
 
+import org.json.simple.JSONObject;
+
 public class User {
 
     private Integer id;

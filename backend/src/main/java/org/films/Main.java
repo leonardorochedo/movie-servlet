@@ -27,7 +27,7 @@ public class Main {
        context.addServlet(new ServletHolder(new UserSigninServlet()), "/auth/signin");
        context.addServlet(new ServletHolder(new UserGetTokenServlet()), "/auth/whoami");
         
-       // Movie
+       // Media
        context.addServlet(new ServletHolder(new TmdbTrendingServlet()), "/medias/trending");
        context.addServlet(new ServletHolder(new TmdbNetflixOriginalsServlet()), "/medias/netflixoriginals");
        context.addServlet(new ServletHolder(new TmdbTopRatedServlet()), "/medias/toprated");
