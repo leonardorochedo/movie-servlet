@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import "./Signin.css";
 
+const logo = "https://upload.wikimedia.org/wikipedia/commons/6/67/NewNetflixLogo.png";
+
 export function Signin() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -35,23 +37,26 @@ export function Signin() {
     };
 
     return (
+        <>
+        <img className="nav-logo-login" src={logo} alt="NetFlix"></img>
         <div className="login-container">
-            <h2>Login</h2>
             <form onSubmit={handleLogin}>
-            <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={handleEmailChange}
-            />
-            <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={handlePasswordChange}
-            />
-            <button type="submit">Sign In</button>
+                <h1>Entrar</h1>
+                <input
+                    type="email"
+                    placeholder="Email ou número de telefone"
+                    value={email}
+                    onChange={handleEmailChange}
+                />
+                <input
+                    type="password"
+                    placeholder="Senha"
+                    value={password}
+                    onChange={handlePasswordChange}
+                />
+                <button type="submit">Entrar</button>
             </form>
         </div>
+        </>
     );
 }
