@@ -12,7 +12,7 @@ export function Row ({ title, path, isLarge }) {
        try {
         const data = await getMovies(_path);
 
-        setMovies(data?.results) // apenas se data não for vazio
+        setMovies(data)
        } catch (error) {
         console.log('error Row: ', error)
        }

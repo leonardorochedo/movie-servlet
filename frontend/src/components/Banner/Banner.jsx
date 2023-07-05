@@ -14,11 +14,8 @@ export function Banner() {
             )
 
             const data = await getMovies(netflixOriginalsCategory.path)
-            const movies = data?.results
-            const randomIndex = Math.floor(Math.random() * movies.length)
-            console.log(movies[randomIndex])
-            setMovie(movies[randomIndex])
-
+            const randomIndex = Math.floor(Math.random() * data.length)
+            setMovie(data[randomIndex])
         }catch (error) {
             console.log("Deu ruim no Banner.js", error)
         }
@@ -26,9 +23,7 @@ export function Banner() {
 
 
     useEffect( () => {
-
         fetchRandomMovie()
-
     }, [] );
 
 
