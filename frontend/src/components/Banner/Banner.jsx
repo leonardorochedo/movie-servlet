@@ -4,7 +4,7 @@ import './Banner.css';
 
 import { categories, getMovies } from '../../api';
 
-export function Banner() {
+export function Banner({ userId }) {
     const [movie, setMovie] = useState({});
 
     const fetchRandomMovie = async () => {
@@ -13,7 +13,7 @@ export function Banner() {
                 (category) => category.name === "netflixOriginals"
             )
 
-            const data = await getMovies(netflixOriginalsCategory.path)
+            const data = await getMovies(netflixOriginalsCategory.path + userId)
             const randomIndex = Math.floor(Math.random() * data.length)
             setMovie(data[randomIndex])
         }catch (error) {

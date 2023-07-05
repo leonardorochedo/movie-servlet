@@ -1,25 +1,35 @@
-import { categories } from './api';
+import { Home } from './pages/Home/Home'
+import { Signin } from './pages/Signin/Signin';
+import { ErrorPage } from './pages/ErrorPage/ErrorPage';
 
-import { Row } from "./components/Row/Row"
-import { Banner } from "./components/Banner/Banner";
-import { Nav } from "./components/Nav/Nav";
+// RRD
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 
 import './App.css'
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Navigate to="/signin" />,
+  },
+  {
+    path: "/signin",
+    element: <Signin />,
+  },
+  {
+    path: "/home",
+    element: <Home />,
+    errorElement: <ErrorPage />
+  },
+]);
 
 export function App() {
 
   return (
-    <div className="App">
-      <Nav />
-      <Banner />
-      {categories.map((category) => {
-        return <Row
-                  key={category.name}
-                  title={category.title}
-                  path={category.path}
-                  isLarge={category.isLarge}
-                />
-      })}
-    </div>
+    <RouterProvider router={router} />
   )
 }
