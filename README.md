@@ -8,7 +8,7 @@ Clone do Netflix feito com React e Java EE utilizando a API https://api.themovie
 
 ## Projeto
 
-Fizemos um clone da Netflix em sala de aula para aprimorar os conhecimentos básicos do React, e também design patterns e servlets no Java, desenvolvendo a API utilizando os dados do The Movie Db que ajudaram muito também!
+Fizemos um clone da Netflix em sala de aula para aprimorar os conhecimentos básicos do React. E sozinhos implementamos a API em Java utilizando design patterns e servlets, utilizando os dados da API The Movie Db que ajudaram muito também!
 
 ## Rode em sua máquina
 
