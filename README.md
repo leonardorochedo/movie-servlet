@@ -1,6 +1,6 @@
-# Clone do Netflix
+# Movie Servlet
 
-Clone do Netflix feito com React e Java EE utilizando a API https://api.themoviedb.org/
+Clone do Netflix feito com React e Java utilizando a API https://api.themoviedb.org/
 
 ## Visão geral
 
